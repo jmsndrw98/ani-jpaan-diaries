@@ -8,6 +8,10 @@ Extract the ZIP and open `index.html` in a modern browser, keeping the scripts a
 
 Browser execution could not be certified in this environment. See TEST_REPORT.md for the distinction between verified source/render tests and outstanding browser/device checks.
 
+## Start a new diary
+
+Use **New diary** on the title screen or in **Journal**, or the existing option in Settings. All three open the same confirmation with **Export current diary**, **Keep this diary** and **Start a new diary**. Opening or cancelling the prompt does not reset anything.
+
 ## Music for every place
 
 | Destination | Default background music |

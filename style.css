@@ -100,3 +100,5 @@ dialog{border-radius:12px;box-shadow:0 18px 70px #1c392e55;border-color:#efeadb}
 #cinema .cinema-copy{background:linear-gradient(transparent,#243c32bb);padding-top:22px}
 @media(max-width:600px){#toolbar button{width:58px;font-size:11px}#toolbar{max-width:calc(100% - 20px)}#quest{max-height:calc(100dvh - 260px)}.loading-faces{gap:9px}.loading-face{width:82px;height:82px}.cinema-top{gap:6px!important;letter-spacing:1px}.cinema-top button{font-size:11px;padding:6px 9px}.cinema-copy p{font-size:18px}.cinema-copy{padding:14px 18px 24px}}
 @media(max-height:570px){#quest{max-height:calc(100dvh - 215px)}.loading-face{width:65px;height:65px}.loading-faces{margin-top:16px}.loading-card h2{margin:15px 0 8px}.loading-note{display:none}.cinema-copy p{min-height:0;margin:8px 0;font-size:16px}.cinema-copy{padding:10px 20px 16px}}
+
+.title-utilities{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px 16px;margin-top:18px}.title-utilities .text-button{margin-top:0}.title-utilities .secondary{min-height:44px;padding:10px 18px;font-size:13px}
