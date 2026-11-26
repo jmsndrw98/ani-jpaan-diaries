@@ -3,7 +3,7 @@ Diary.World = class {
  constructor(chapter){this.chapter=chapter;this.size=24;this.objects=Diary.OBJECTS.map(x=>({...x}));this.props=[];this.blocked=new Set();this.build();}
  key(x,y){return Math.round(x)+','+Math.round(y)}
  water(x,y){return this.chapter===1?(x>=20&&y<17):(this.chapter===2?(x>=20||y<2):(y>=22));}
- path(x,y){return Math.abs(x-11)<=1||Math.abs(y-11)<=1||((y===9||y===10)&&x>=7&&x<=18)||((y>=14&&y<=17)&&x>=7&&x<=18)||((x===18||x===19)&&y>=16&&y<=20)||y===12&&x>=3&&x<=10;}
+ path(x,y){return ((x===11||x===12)&&y>=5&&y<=20)||((y===10||y===11)&&x>=5&&x<=20)||((y===9)&&x>=8&&x<=17)||((y===15||y===16)&&x>=7&&x<=18)||((x===18||x===19)&&y>=16&&y<=20)||y===12&&x>=3&&x<=10;}
  add(type,x,y,extra={}){this.props.push({type,x,y,...extra});if(extra.block!==false)this.blocked.add(this.key(x,y));}
  build(){
   for(let x=0;x<this.size;x++)for(let y=0;y<this.size;y++)if(this.water(x,y))this.blocked.add(this.key(x,y));
@@ -17,7 +17,7 @@ Diary.World = class {
   for(let x=1;x<23;x++)for(let y=2;y<22;y++){
    if(this.water(x,y)||this.path(x,y)||this.blocked.has(this.key(x,y)))continue;
    const near=this.objects.some(o=>Math.hypot(x-o.tx,y-o.ty)<2.3||Math.hypot(x-o.x,y-o.y)<2.2);
-   if(near)continue;const r=Diary.hash(x,y,this.chapter);
+   if(near||Math.hypot(x-12,y-15)<2.4)continue;const r=Diary.hash(x,y,this.chapter);
    if(r>.86)this.add('tree',x,y,{variant:Math.floor(r*50)});else if(r<.055)this.add('rock',x,y);else if(r<.20)this.add('flowers',x,y,{block:false});
   }
   for(const [x,y]of[[9,8],[14,8],[8,14],[14,18],[16,18],[5,12]])this.add('lantern',x,y,{block:false});
@@ -42,5 +42,6 @@ Diary.World = class {
   }
   if(!endKey)return[];const path=[];let k=endKey;while(k!==key(a)){const [x,y]=k.split(',').map(Number);path.unshift({x,y});k=came.get(k);if(!k)return[];}return path;
  }
- move(actor,dx,dy){const pad=.12;if(this.walkable(actor.x+dx+Math.sign(dx)*pad,actor.y))actor.x+=dx;if(this.walkable(actor.x,actor.y+dy+Math.sign(dy)*pad))actor.y+=dy;}
+ clearLine(a,b){const distance=Math.hypot(b.x-a.x,b.y-a.y),steps=Math.max(1,Math.ceil(distance/.12));for(let i=0;i<=steps;i++){const t=i/steps,x=a.x+(b.x-a.x)*t,y=a.y+(b.y-a.y)*t;for(const [ox,oy] of [[-.15,-.15],[.15,-.15],[.15,.15],[-.15,.15]])if(!this.walkable(x+ox,y+oy))return false;}return true;}
+ move(actor,dx,dy){const pad=.15;const can=(x,y)=>[[-pad,-pad],[pad,-pad],[pad,pad],[-pad,pad]].every(([ox,oy])=>this.walkable(x+ox,y+oy));if(can(actor.x+dx,actor.y))actor.x+=dx;if(can(actor.x,actor.y+dy))actor.y+=dy;}
 };

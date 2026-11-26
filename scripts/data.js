@@ -9,7 +9,7 @@ Diary.CHAPTERS = [
 ];
 Diary.LEVELS = [0,80,180,320,500,720,1000,1350];
 Diary.REWARDS = ['New footsteps','Petal ribbon','Forest friend','Woven travel scarf','Little lantern','Seasoned wanderer','Memory keeper','A heart full of Japan'];
-Diary.XP = {pet:5,feed:10,play:25,souvenir:15,landmark:20,activity:25,secret:50,destination:100,photo:0,rest:0};
+Diary.XP = {pet:5,feed:10,play:25,paw:10,souvenir:15,landmark:20,activity:25,secret:50,destination:100,photo:0,rest:0};
 Diary.OBJECTS = [
  {id:'landmark',x:7,y:7,tx:9,ty:9,type:'landmark'},
  {id:'activity',x:17,y:7,tx:16,ty:9,type:'activity'},
@@ -22,3 +22,11 @@ Diary.TASKS = [['landmark','Visit the landmark'],['activity','Try a local ritual
 Diary.level = xp => Math.min(Diary.LEVELS.length-1,Diary.LEVELS.filter(v=>xp>=v).length-1);
 Diary.escape = text => String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 Diary.hash = (x,y,n=0) => {let v=Math.sin(x*127.1+y*311.7+n*74.7)*43758.5453;return v-Math.floor(v)};
+
+Diary.MUSIC_TRACKS = [
+ {id:'kawaranai',title:'Kawaranai Mono',src:'assets/audio/kawaranai-mono.m4a'},
+ {id:'secret-base',title:'secret base ～君がくれたもの～ feat えみい',src:'assets/audio/secret-base.m4a'},
+ {id:'sparkle',title:'Sparkle — movie ver.',src:'assets/audio/sparkle.m4a'},
+ {id:'grand-escape',title:'Grand Escape (Movie Edit) feat Toko Miura',src:'assets/audio/grand-escape.m4a'}
+];
+Diary.MUSIC_DEFAULTS = ['kawaranai','secret-base','sparkle','grand-escape'];

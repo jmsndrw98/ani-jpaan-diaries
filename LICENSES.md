@@ -2,9 +2,11 @@
 
 | Material | Source | Status |
 | --- | --- | --- |
-| Character reference sheets | User-supplied ZIP | Preserved originals. No separate license supplied; ownership and permissions remain with their respective rights holders. |
-| Character atlas and embedded copy | Built-in image_gen, using supplied references, then background extraction | AI-derived art, not pixel-exact extraction. No independent license to source character designs asserted. |
-| Environment drawing, UI paths, procedural audio, code and CSS | Created for this implementation | Original implementation; no third-party runtime libraries or stock media included. |
+| Original character reference PNGs | User-supplied ZIP | Preserved unchanged. No separate license supplied; existing rights remain with their respective owners. |
+| Active pixel rigs and portrait exports | Code-authored for this revision, based on supplied character identities | Stylized interpretations. No independent license to the underlying character designs asserted. |
+| Environment drawing, UI SVG, favicon, activity illustrations, code and CSS | Created for this implementation | Original implementation; no third-party runtime libraries or stock media included. |
+| Background music: Kawaranai Mono, secret base, Sparkle, Grand Escape | Four M4A files supplied by the user for this local project | Copied unchanged. Existing music rights remain with their respective owners; no redistribution license was supplied or asserted. |
+| Synthesized ambience and effects | Web Audio code in this project | Original procedural audio. |
 | System fonts | Browser/OS | Referenced by family; no font binaries distributed. |
 
-No downloaded recordings, stock assets, external APIs, analytics or CDN dependencies. Development-only Canvas libraries used for inspection are not bundled with the game.
+The generated atlas from the initial prototype is no longer used or included in this revised source export. Development-only native Canvas and image-encoding tools are not required by the game and are not bundled.

@@ -1,43 +1,49 @@
-# Asset guide
+# Asset guide — Pixel & Motion Edition
 
-## Character artwork
+## Characters
 
-The three original PNGs under `assets/references/` are unchanged. SHA-256 hashes were compared with files inside the supplied ZIP. Reference sheets are not animation atlases.
+The reference PNGs in `assets/references/` are unchanged and their SHA-256 hashes match the supplied ZIP. They are references, not animation atlases.
 
-`assets/characters-clean.png`: generated and background-extracted derivative, 1086 × 1448 RGBA. Three columns and four rows, each cell 362 × 362. Columns: Ani, Happy, Toti. Rows: front standing, rear standing, one front stride, seated. Nominal foot anchor: center X, 96% cell height. Minor pose-specific anchor differences remain. The renderer mirrors horizontal orientation and adds a small walking bob. This is not a complete directional animation atlas.
+Active gameplay now uses original code-authored pixel rigs in `scripts/art.js`. The previous generated atlas has been removed from the runtime/export. No image-generation tool was used for this revision’s new artwork. The characters reinterpret the supplied identities at a consistent pixel density; they are not pixel-exact extractions.
 
-`assets/characters-inline.js` embeds the same PNG as a data URI, keeping photo capture independent of external image origins during local-file use. CSS uses the PNG for companion portraits. Original references are not loaded during play.
+Each rendered pose uses a transparent 128×128 buffer and nominal foot anchor (64,108). Walking uses 32 quantized gait phases, driven by traveled distance, with independent feet/legs and sleeve movement. Rest blends lower the body while preserving the ground anchor. Dogs have articulated legs, tail movement, care poses and mirrored front/rear orientations. Buffers are cached with a 300-entry cap. This is procedural articulation, not a claim of eight separately authored directional atlases. Distinct left/right side portraits and custom full back-view quadruped geometry remain outside this revision.
 
-The built-in image_gen tool produced both passes. Final prompt set:
-
-### Atlas generation
-
-> Use case: identity-preserve. Asset type: transparent game character sprite atlas. References in order Ani, Happy, Toti. Preserve exact distinctive identities, voxel pixel texture, costumes and accessories. Create ONE sprite atlas on fully transparent background with exactly 3 columns and 4 rows, evenly sized cells, no borders or text. Column 1 Ani in sakura kimono glasses parasol, column 2 Happy golden retriever samurai costume straw hat, column 3 Toti small tan upright-eared dog brown leather armor curled tail. Row 1 front three-quarter standing; row 2 back three-quarter standing; row 3 front three-quarter walking left leg forward with actual bent limb poses; row 4 seated restful poses. Every full character stays inside its own cell with generous transparent margins, centered horizontally, feet on consistent baseline at 90% cell height. Ani taller, Happy medium, Toti smaller. Crisp chunky warm voxel pixel art, no background or ground shadows. Output portrait 1536x2048 if possible. Consistent character scale across all rows. No extra characters.
-
-The first result had a mostly opaque light background and was not used.
-
-### Background extraction
-
-> Use case: background-extraction. Remove ONLY the white/checkered background from this exact sprite atlas. The background must be fully transparent alpha=0, NOT white, NOT a baked checkerboard, NOT semiopaque. Preserve every character pixel, identity, pose, layout, and 3-column 4-row grid. Output clean fully isolated game sprites on true transparent background. No shadow. Keep the complete atlas composition unchanged.
-
-The final image was visually inspected; corner alpha is zero. Some colored fringe pixels remain around detailed accessories.
+`assets/portraits/ani.png`, `happy.png` and `toti.png` are 256×256 transparent exports of the same rigs for UI use. The standalone build embeds the portraits. Character game art itself requires no image loading.
 
 ## Environments
 
-Artwork is authored in `scripts/render.js` and placed by `scripts/world.js`. No runtime image generation. Tile size: 58 × 29 logical pixels before camera scaling. Each destination is a 24 × 24 grid, generated when entered. Terrain, roofs, timber, windows, bamboo, trees, flowers, lamps, fences, benches, stalls, deer, bridge and station are drawn from code. Kyoto uses sakura/timber; Nara forest/river; Hakone pine/lake/rain; Tokyo a darker palette, skyline and lanterns. Compact layouts share interaction coordinates.
+`scripts/renderer.js` contains the environment artwork and `scripts/world.js` its placement/collision. Every chapter is a 24×24 map; one tile projects to 58×29 logical pixels. The terrain is cached once per entered world. Props use tightly sized image buffers and are skipped outside the viewport. Pose caches are bounded.
 
-Water, petals, bamboo, steam and rain animate procedurally. Reduced motion disables these and train background movement. Characters and trees sort by foot position; buildings use footprint centers, so complex overlaps still need live testing.
+Kyoto: pink layered canopies, red gate, shoji buildings and bamboo. Nara: broad green foliage, deer, river and picnic. Hakone: cool water, pine branches, rain and viewpoint. Tokyo: evening palette, food stalls, distant buildings, paper lanterns and warm light pools. Layouts remain compact and share interaction coordinates. Textures, ornaments and props are code-authored, not stock or generated-image assets.
 
-UI icons use inline SVG and monochrome ornaments. Stamps use text/CSS. System fonts require no web requests.
+Camera/actor coordinates remain fractional for smooth movement; local art retains hard pixel edges. Water, foliage, weather and steam animate separately. Trees can be clicked to shed petals/leaves. Occluding trees/buildings become translucent near the player. Photo capture omits route dots, interaction markers and screen-space weather.
 
-## Audio
+## Favicon
 
-`scripts/audio.js` synthesizes a short original melody, filtered-noise ambience and triangle-wave chimes. Audio begins after a user gesture. No recordings or third-party samples. This is a small sound bed, with shared ambience across chapters.
+Original sakura vector in `favicon.svg`; multi-resolution `favicon.ico` (16/32/48); PNGs under `assets/icons/` (16/32/48/180/192/512). The 180 PNG is the Apple touch icon. Pink, warm gold and forest green match the game. Icons are embedded in the standalone file.
 
-## Website favicon
+## UI and audio
 
-`favicon.svg` is an original vector sakura blossom in the game’s pink, warm gold and forest-green palette, drawn for this website. `favicon.ico` contains 16, 32 and 48 pixel versions. PNG exports in `assets/icons/` include those sizes plus 180 (Apple touch icon), 192 and 512 pixels. The standalone HTML embeds the favicon assets. These are code-authored vectors and raster exports; no image-generation model or external artwork was used for the favicon.
+UI icons are inline SVG with system fonts. Activities render their own Canvas illustrations; their loops are disposed when dialogs close. Ambience and chimes use the original small Web Audio synthesis implementation. Background music now uses the four user-supplied local recordings described below; no network dependencies are required.
 
-## Editing character artwork
+## Updating
 
-Keep atlas dimensions/layout when replacing art. Regenerate `characters-inline.js` and the standalone HTML from any replacement PNG. Preserve original references.
+Edit rigs in art.js and scenery in renderer.js. Re-export portrait PNGs when changing character designs. Rebuild the standalone HTML and ZIP together; their runtime code should match the folder build. Preserve supplied reference originals.
+
+## Requests & railways revision
+
+`assets/faces/ani.png`, `happy.png` and `toti.png` are 128×128 transparent head crops rendered from the original code-authored rigs. They appear in the loading screen and are embedded in the standalone export. No new external or generated-image assets were used.
+
+Quest envelopes and train scenery are original Canvas drawings in `scripts/renderer.js`. Train layers use fixed repeating spans and fractional canvas translations; a scene-local elapsed clock drives an analytic acceleration curve. Pausing stops that clock, and reduced motion renders a still view. Portrait/landscape compositions reserve space for narration, but browser overlay layout still requires live verification.
+
+## Companions & changing skies revision
+
+`scripts/art.js` adds a raised front paw and Ani’s responding arm pose using the existing code-authored rigs. No new third-party imagery is used. Stay uses the existing simplified resting pose.
+
+`scripts/environment.js` renders interpolated sky colors, sun/moon/stars, passing clouds, nighttime tint and localized light glows, rain strokes, mist and drifting leaves/petals. All artwork is procedural. Atmosphere is composited over cached terrain, so gradual lighting changes do not rebuild world assets. Reduced motion keeps the sky/particles still while allowing the time cycle to continue. Weather ambience audio remains the existing synthesized sound bed, not separate recorded rain effects.
+
+## User-supplied music revision
+
+`assets/audio/` contains the four original M4A recordings, renamed to portable ASCII filenames only. SHA-256 hashes, container durations, original filenames and default destination mappings are in `assets/manifest.json`. Byte identity was checked against the supplied files. MP4 container inspection found `mp4a` audio sample entries in all four files; this is a container inspection, not an audible browser decode test.
+
+The standalone export embeds each file once as an audio/mp4 data URL. The folder export uses relative local sources. A single HTML audio element loops the selected track; the BGM slider sets its volume (40% by default). A brief fade-in uses the existing game loop. The code does not fetch music remotely, alter the supplied audio, strip vocals, or transcode the recordings. These are full songs used as quiet BGM. No gapless-loop guarantee is made.

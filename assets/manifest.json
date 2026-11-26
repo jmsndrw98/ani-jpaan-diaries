@@ -1,5 +1,5 @@
 {
-  "status": "playable_prototype_browser_qa_incomplete",
+  "status": "music_revision_5_browser_qa_incomplete",
   "characters": {
     "ani": {
       "path": "assets/references/ani.png",
@@ -31,26 +31,8 @@
     "assets/references/happy.png": "a53ae54825bb30be463d5c5dc3e8964ddc895d848c81107fb1895105c3f60478",
     "assets/references/toti.png": "32e586e520fa48e5d614a4aa5fac7b7a7bc5e26f889650e3dd400f931b418b76"
   },
-  "runtime_atlas": {
-    "path": "assets/characters-clean.png",
-    "width": 1086,
-    "height": 1448,
-    "columns": 3,
-    "rows": 4,
-    "cell_width": 362,
-    "cell_height": 362,
-    "poses": [
-      "front_standing",
-      "rear_standing",
-      "front_stride",
-      "seated"
-    ],
-    "eight_direction_animation_complete": false,
-    "source": "Built-in image_gen derivative of user references; see ASSET_GUIDE.md",
-    "inline_copy": "assets/characters-inline.js"
-  },
   "environments": {
-    "source": "scripts/render.js and scripts/world.js",
+    "source": "scripts/renderer.js and scripts/world.js",
     "map_dimensions": [
       24,
       24
@@ -65,12 +47,63 @@
       "hakone",
       "tokyo"
     ],
-    "generation": "procedural at destination entry"
+    "generation": "cached procedural art at destination entry; viewport culling"
   },
   "audio": {
     "source": "scripts/audio.js",
-    "provenance": "Original procedural Web Audio synthesis",
-    "third_party_samples": false
+    "provenance": "Four user-supplied M4A songs; original procedural ambience and effects",
+    "third_party_samples": true,
+    "default_bgm_volume": 0.4,
+    "loop": true,
+    "background_playback": "continues while tab remains open, subject to browser/OS restrictions",
+    "default_places": {
+      "kyoto": "kawaranai-mono.m4a",
+      "nara": "secret-base.m4a",
+      "hakone": "sparkle.m4a",
+      "tokyo": "grand-escape.m4a"
+    },
+    "tracks": [
+      {
+        "file": "kawaranai-mono.m4a",
+        "source_filename": "Kawaranai Mono.m4a",
+        "bytes": 4657583,
+        "duration_seconds": 283.06,
+        "sample_entries": [
+          "mp4a"
+        ],
+        "sha256": "7d2fc55f9a651afc809962990c926dc76d7af1b5f18a47cbe58ab44b92f62d03"
+      },
+      {
+        "file": "secret-base.m4a",
+        "source_filename": "secret base \uff5e\u541b\u304c\u304f\u308c\u305f\u3082\u306e\uff5e feat\u3048\u307f\u3044 (\u30c6\u30fc\u30de\u30d1\u30fc\u30af\u30ac\u30fc\u30eb).m4a",
+        "bytes": 5748363,
+        "duration_seconds": 348.01,
+        "sample_entries": [
+          "mp4a"
+        ],
+        "sha256": "4c1b06cdc8432752f21a1ea75b3a17976f9cc17b653bb99787dd4c730aeeaf38"
+      },
+      {
+        "file": "sparkle.m4a",
+        "source_filename": "Sparkle - movie ver.m4a",
+        "bytes": 8792395,
+        "duration_seconds": 537.66,
+        "sample_entries": [
+          "mp4a"
+        ],
+        "sha256": "ebf53041c6d0a2c807b5342d35919b93b8866083f6008f9563c85f936c23803c"
+      },
+      {
+        "file": "grand-escape.m4a",
+        "source_filename": "Grand Escape (Movie Edit) feat Toko Miura.m4a",
+        "bytes": 3175241,
+        "duration_seconds": 188.08,
+        "sample_entries": [
+          "mp4a"
+        ],
+        "sha256": "518fec4a3d9e2d7de9d4ca192ed1d152c7298f837013754f1c3d1e10a764ff8a"
+      }
+    ]
   },
   "favicon": {
     "source": "Original code-authored sakura SVG",
@@ -89,5 +122,93 @@
       "#f1b8c4",
       "#ffe6ab"
     ]
+  },
+  "runtime_rigs": {
+    "source": "scripts/art.js",
+    "render_buffer": [
+      128,
+      128
+    ],
+    "foot_anchor": [
+      64,
+      108
+    ],
+    "gait_phase_samples": 32,
+    "orientation": "front/rear, mirrored laterally",
+    "animation": "distance-driven articulated legs and arms, pose easing, tail motion",
+    "portraits": [
+      "assets/portraits/ani.png",
+      "assets/portraits/happy.png",
+      "assets/portraits/toti.png"
+    ],
+    "provenance": "Code-authored pixel interpretations of the supplied character designs; not pixel-exact extraction"
+  },
+  "loading_faces": {
+    "paths": [
+      "assets/faces/ani.png",
+      "assets/faces/happy.png",
+      "assets/faces/toti.png"
+    ],
+    "dimensions": [
+      128,
+      128
+    ],
+    "provenance": "Head crops rendered from code-authored pixel rigs"
+  },
+  "quests": {
+    "source": "scripts/quests.js",
+    "count": 4,
+    "collectibles_per_quest": 3,
+    "optional": true
+  },
+  "train": {
+    "source": "scripts/renderer.js",
+    "motion": "scene-local analytic acceleration; fixed-span parallax; pause and reduced-motion support"
+  },
+  "environment_cycle": {
+    "source": "scripts/environment.js",
+    "day_seconds": 86400,
+    "weather_step_seconds": 90,
+    "phases": [
+      "Morning",
+      "Day",
+      "Afternoon",
+      "Evening",
+      "Night",
+      "Midnight"
+    ],
+    "weather": [
+      "clear",
+      "cloudy",
+      "breeze",
+      "rain",
+      "mist"
+    ],
+    "destinations": 4,
+    "artwork": "original procedural Canvas graphics",
+    "manual_fast_day_seconds": 720,
+    "clock": {
+      "default_world_time": "Asia/Manila",
+      "secondary_display": "Asia/Tokyo",
+      "source": "device clock via Date.now and Intl.DateTimeFormat",
+      "format": "12-hour AM/PM with dates in Time & Weather panel"
+    }
+  },
+  "companion_interactions": {
+    "source": [
+      "scripts/play.js",
+      "scripts/art.js",
+      "scripts/ui.js"
+    ],
+    "actions": [
+      "pet",
+      "feed",
+      "fetch",
+      "give paw",
+      "stay",
+      "follow",
+      "lead to rest / sniff quest item or secret"
+    ],
+    "paw_reward": "10 XP and 6 friendship once per dog per chapter"
   }
 }
