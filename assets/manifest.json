@@ -1,0 +1,93 @@
+{
+  "status": "playable_prototype_browser_qa_incomplete",
+  "characters": {
+    "ani": {
+      "path": "assets/references/ani.png",
+      "width": 1122,
+      "height": 1402,
+      "views": 6,
+      "animation_ready": false,
+      "source": "user supplied"
+    },
+    "happy": {
+      "path": "assets/references/happy.png",
+      "width": 1536,
+      "height": 1024,
+      "views": 6,
+      "animation_ready": false,
+      "source": "user supplied"
+    },
+    "toti": {
+      "path": "assets/references/toti.png",
+      "width": 1536,
+      "height": 1024,
+      "views": 6,
+      "animation_ready": false,
+      "source": "user supplied"
+    }
+  },
+  "reference_sha256": {
+    "assets/references/ani.png": "2403c6b782a3d0263a873cc464ee7a68af00b61837d85512e8f95e1abe0b35e1",
+    "assets/references/happy.png": "a53ae54825bb30be463d5c5dc3e8964ddc895d848c81107fb1895105c3f60478",
+    "assets/references/toti.png": "32e586e520fa48e5d614a4aa5fac7b7a7bc5e26f889650e3dd400f931b418b76"
+  },
+  "runtime_atlas": {
+    "path": "assets/characters-clean.png",
+    "width": 1086,
+    "height": 1448,
+    "columns": 3,
+    "rows": 4,
+    "cell_width": 362,
+    "cell_height": 362,
+    "poses": [
+      "front_standing",
+      "rear_standing",
+      "front_stride",
+      "seated"
+    ],
+    "eight_direction_animation_complete": false,
+    "source": "Built-in image_gen derivative of user references; see ASSET_GUIDE.md",
+    "inline_copy": "assets/characters-inline.js"
+  },
+  "environments": {
+    "source": "scripts/render.js and scripts/world.js",
+    "map_dimensions": [
+      24,
+      24
+    ],
+    "tile_dimensions": [
+      58,
+      29
+    ],
+    "packs": [
+      "kyoto",
+      "nara",
+      "hakone",
+      "tokyo"
+    ],
+    "generation": "procedural at destination entry"
+  },
+  "audio": {
+    "source": "scripts/audio.js",
+    "provenance": "Original procedural Web Audio synthesis",
+    "third_party_samples": false
+  },
+  "favicon": {
+    "source": "Original code-authored sakura SVG",
+    "svg": "favicon.svg",
+    "ico": "favicon.ico",
+    "png_sizes": [
+      16,
+      32,
+      48,
+      180,
+      192,
+      512
+    ],
+    "palette": [
+      "#354b39",
+      "#f1b8c4",
+      "#ffe6ab"
+    ]
+  }
+}

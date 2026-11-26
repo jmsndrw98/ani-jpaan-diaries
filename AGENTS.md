@@ -1,0 +1,2 @@
+# Codex instructions
+Read GAME_DESIGN.md and assets/manifest.json before coding. Treat the supplied PNGs as canonical references. Build a portable, responsive HTML5 Canvas game with vanilla JavaScript and CSS. No npm or build tooling. Implement and test in stages; preserve reference originals and document missing assets or untested features. Final deliverable must contain a working index.html and all local assets.
